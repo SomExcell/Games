@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <vector>
+#include <utility>
 
 enum Way
 {
@@ -26,6 +27,7 @@ public:
     void setWay(const GLuint &codeKey);
     void setCoordinates(GLfloat xCoord,GLfloat yCoord);
     void draw(Shader& shader);
+    void takedApple();
     Way getWay();
 private:
     Way way = RIGHT;
@@ -61,14 +63,25 @@ void Snake::setCoordinates(GLfloat xCoord,GLfloat yCoord)
 
 void Snake::draw(Shader& shader)
 {
-    for (size_t i = 0; i < size; i++)
+    shader.setFloat("changeX",body[0].first);
+    shader.setFloat("changeY",body[0].second);
+    GameObject::draw();
+    loadTexture("resources/images/body.png");
+    for (size_t i = 1; i < size; i++)
     {
         shader.setFloat("changeX",body[i].first);
         shader.setFloat("changeY",body[i].second);
         GameObject::draw();
     }
+    loadTexture("resources/images/snake.png");
     shader.setFloat("changeX",0);
     shader.setFloat("changeY",0);
+}
+
+void Snake::takedApple()
+{
+    ++size;
+    body.push_back(std::make_pair(0.0,0.0));
 }
 
 Way Snake::getWay()
