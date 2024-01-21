@@ -41,7 +41,7 @@ public:
 private:
     GLuint texture = 0;
     GLuint VBO = 0, VAO = 0, EBO = 0;
-    GLfloat x,y,sizeX,sizeY;
+    GLfloat x = 0,y = 0,sizeX,sizeY;
     GLfloat vertices[32];
     GLuint indices[6];
 };
@@ -106,11 +106,16 @@ void GameObject::setupVertex()
 void GameObject::setCoordinates(GLfloat xCoord,GLfloat yCoord)
 {
     x = xCoord,y = yCoord;
+    //vertices[0] = -1.0f + xCoord, vertices[1] = 1.0f - yCoord;
 }
 
 void GameObject::setSizeSides(GLfloat sizeSideX, GLfloat sizeSideY)
 {
     sizeX = sizeSideX,sizeY = sizeSideY;
+    vertices[8] = vertices[0] + sizeSideX, vertices[17] = vertices[1] - sizeSideY;
+    vertices[24] = vertices[0] + sizeSideX, vertices[25] = vertices[1] - sizeSideY;
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 }
 
 void GameObject::installVertices()

@@ -28,7 +28,7 @@ private:
     GameObject wall{"resources/images/wall.png"};
     GameObject grass{"resources/images/grasss.jpg"};
     GameObject apple{"resources/images/apple.png"};
-    GameObject gameOver{"resources/images/gameover.jpg"};
+    GameObject gameOver{"resources/images/gameOver.png"};
     Snake snake{"resources/images/snake.png"};
     int codeKey;
     bool inGame = true;
@@ -121,6 +121,8 @@ void Game::checkCollision()
     if(snake.getX()<=0.05 || snake.getX() >= 1.9 || snake.getY() <= 0.05 || snake.getY() >= 1.9)
     {
         inGame = false;
+        gameOver.setCoordinates(0.5,0.5);
+        gameOver.setSizeSides(1,1);
     }
 }
 
