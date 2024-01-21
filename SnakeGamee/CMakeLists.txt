@@ -6,10 +6,11 @@ project(${PROJECT_NAME})
 include_directories("header/")
 
 add_executable(SnakeGame src/main.cpp 
-							header/shader.hpp 
-							header/stb_image.h 
-							header/gameObject.hpp
-							header/snake.hpp)
+						header/game.hpp
+						header/shader.hpp 
+						header/stb_image.h 
+						header/gameObject.hpp
+						header/snake.hpp)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
